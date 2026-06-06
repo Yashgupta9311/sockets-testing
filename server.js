@@ -1,3 +1,7 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 import { Server } from "socket.io";
 import express from 'express';
 import { createServer } from 'node:http';
@@ -27,8 +31,10 @@ io.on('connection', (socket) => {
 
 });
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello world</h1>');
+app.use(express.static(path.join(__dirname, 'chat-frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'chat-frontend/dist/index.html'));
 });
 
 server.listen(5000, () => {

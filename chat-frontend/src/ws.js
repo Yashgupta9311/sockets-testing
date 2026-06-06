@@ -1,4 +1,5 @@
-import {io} from 'socket.io-client';
-export function connectws(){
-    return io('http://localhost:5000')
+import { io } from 'socket.io-client';
+
+export function connectws() {
+  return io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000');
 }
